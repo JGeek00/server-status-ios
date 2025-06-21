@@ -104,10 +104,10 @@ struct SettingsView: View {
                     Section {
                         NavigationLink("Give a tip to the developer", value: Routes.SettingsRoutes.tips)
                         Button {
-                            settingsModel.contactDeveloperSafariOpen.toggle()
+                            settingsModel.aboutThisAppSafariOpen.toggle()
                         } label: {
                             HStack {
-                                Text("Contact the developer")
+                                Text("About this application")
                                     .foregroundColor(.foreground)
                                 Spacer()
                                 Image(systemName: "link")
@@ -115,10 +115,10 @@ struct SettingsView: View {
                             }
                         }
                         Button {
-                            settingsModel.appRepoSafariOpen.toggle()
+                            settingsModel.myOtherAppsSafariOpen.toggle()
                         } label: {
                             HStack {
-                                Text("Check the app repository")
+                                Text("Check out my other applications")
                                     .foregroundColor(.foreground)
                                 Spacer()
                                 Image(systemName: "link")
@@ -171,11 +171,11 @@ struct SettingsView: View {
         .fullScreenCover(isPresented: $settingsModel.statusRepoSafariOpen, content: {
             SFSafariViewWrapper(url: URL(string: Urls.statusRepo)!).ignoresSafeArea()
         })
-        .fullScreenCover(isPresented: $settingsModel.contactDeveloperSafariOpen, content: {
-            SFSafariViewWrapper(url: URL(string: Urls.appSupport)!).ignoresSafeArea()
+        .fullScreenCover(isPresented: $settingsModel.aboutThisAppSafariOpen, content: {
+            SFSafariViewWrapper(url: URL(string: Urls.aboutThisApp)!).ignoresSafeArea()
         })
-        .fullScreenCover(isPresented: $settingsModel.appRepoSafariOpen, content: {
-            SFSafariViewWrapper(url: URL(string: Urls.appRepo)!).ignoresSafeArea()
+        .fullScreenCover(isPresented: $settingsModel.myOtherAppsSafariOpen, content: {
+            SFSafariViewWrapper(url: URL(string: Urls.myOtherApps)!).ignoresSafeArea()
         })
         .environment(\.colorScheme, scheme)
     }

@@ -157,6 +157,16 @@
         }
       }
     },
+    "About this application" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sobre esta aplicación"
+          }
+        }
+      }
+    },
     "Add instance" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -356,12 +366,12 @@
         }
       }
     },
-    "Check the app repository" : {
+    "Check out my other applications" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Comprueba el repositorio de la app"
+            "value" : "Descubre mis otras aplicaciones"
           }
         }
       }
@@ -448,16 +458,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Método de conexión"
-          }
-        }
-      }
-    },
-    "Contact the developer" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Contacta con el desarrollador"
           }
         }
       }
