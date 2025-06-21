@@ -109,66 +109,87 @@ private struct NetworkChart: View {
         return networkData
     }
     
+    @State private var selectedIndex: Int?
+    
     var body: some View {
         let chartData = generateChartData()
-        if chartData != nil {
-            let maxValue = (chartData!.map() { return $0.tx ?? 0 } + chartData!.map() { return $0.rx ?? 0 }).max()
+        if let chartData = chartData {
+            let maxValue = (chartData.map() { return $0.tx ?? 0 } + chartData.map() { return $0.rx ?? 0 }).max()
             Section("Chart") {
                 VStack {
-                    Chart {
-                        ForEach(Array(chartData!.enumerated()), id: \.element.id) { index, item in
-                            LineMark(
-                                x: .value("", index),
-                                y: .value("TX", item.tx ?? 0),
-                                series: .value("TX", "A")
+                    Chart(Array(chartData.enumerated()), id: \.element.id) { index, item in
+                        LineMark(
+                            x: .value("", index),
+                            y: .value("TX", item.tx ?? 0),
+                            series: .value("TX", "A")
+                        )
+                        .foregroundStyle(Color.blue)
+                        .interpolationMethod(.catmullRom)
+                        AreaMark(
+                            x: .value("", index),
+                            yStart: .value("TX", 0),
+                            yEnd: .value("TX", item.tx ?? 0),
+                            series: .value("TX", "A")
+                        )
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [
+                                    .blue.opacity(0.5),
+                                    .blue.opacity(0.2),
+                                    .blue.opacity(0.05)
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
                             )
-                            .foregroundStyle(Color.blue)
-                            .interpolationMethod(.catmullRom)
-                            AreaMark(
-                                x: .value("", index),
-                                yStart: .value("TX", 0),
-                                yEnd: .value("TX", item.tx ?? 0),
-                                series: .value("TX", "A")
+                        )
+                        .interpolationMethod(.catmullRom)
+                        LineMark(
+                            x: .value("", index),
+                            y: .value("RX", item.rx ?? 0),
+                            series: .value("RX", "B")
+                        )
+                        .foregroundStyle(Color.green)
+                        .interpolationMethod(.catmullRom)
+                        AreaMark(
+                            x: .value("", index),
+                            yStart: .value("RX", 0),
+                            yEnd: .value("RX", item.rx ?? 0),
+                            series: .value("RX", "B")
+                        )
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [
+                                    .green.opacity(0.5),
+                                    .green.opacity(0.2),
+                                    .green.opacity(0.05)
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
                             )
-                            .foregroundStyle(
-                                LinearGradient(
-                                    colors: [
-                                        .blue.opacity(0.5),
-                                        .blue.opacity(0.2),
-                                        .blue.opacity(0.05)
-                                    ],
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                )
-                            )
-                            .interpolationMethod(.catmullRom)
-                            LineMark(
-                                x: .value("", index),
-                                y: .value("RX", item.rx ?? 0),
-                                series: .value("RX", "B")
-                            )
-                            .foregroundStyle(Color.green)
-                            .interpolationMethod(.catmullRom)
-                            AreaMark(
-                                x: .value("", index),
-                                yStart: .value("RX", 0),
-                                yEnd: .value("RX", item.rx ?? 0),
-                                series: .value("RX", "B")
-                            )
-                            .foregroundStyle(
-                                LinearGradient(
-                                    colors: [
-                                        .green.opacity(0.5),
-                                        .green.opacity(0.2),
-                                        .green.opacity(0.05)
-                                    ],
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                )
-                            )
-                            .interpolationMethod(.catmullRom)
+                        )
+                        .interpolationMethod(.catmullRom)
+                        if let selectedIndex, selectedIndex >= 0 && selectedIndex < chartData.count {
+                            let markValue = chartData[selectedIndex]
+                            if let tx = markValue.tx, let rx = markValue.rx {
+                                RuleMark(x: .value(String(describing: "network"), selectedIndex))
+                                    .lineStyle(.init(dash: [2, 2]))
+                                    .cornerRadius(8)
+                                    .offset(x: 0, y: 12)
+                                    .annotation(position: .automatic, overflowResolution: .init(x: .fit(to: .plot), y: .fit(to: .plot))) {
+                                        VStack {
+                                            Text(String(describing: "TX: \(formatNumber(value: NSNumber(value: tx)) ?? "--") Kbit/s"))
+                                            Spacer().frame(height: 8)
+                                            Text(String(describing: "RX: \(formatNumber(value: NSNumber(value: rx)) ?? "--") Kbit/s"))
+                                        }
+                                        .fontWeight(.semibold)
+                                        .padding(8)
+                                        .background(Material.thick)
+                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                                    }
+                            }
                         }
                     }
+                    .chartXSelection(value: $selectedIndex)
                     .chartYScale(domain: 0...(maxValue! > 0 ? maxValue! : 10))
                     .chartYAxisLabel("Data transfer (Kbit/s)")
                     .chartXAxis(Visibility.hidden)
@@ -194,6 +215,7 @@ private struct NetworkChart: View {
                         }
                         Spacer()
                     }
+                    
                 }
                 .animation(.easeInOut(duration: 0.2), value: chartData)
                 .padding(.top, 8)

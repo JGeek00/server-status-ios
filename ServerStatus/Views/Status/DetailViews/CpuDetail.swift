@@ -162,32 +162,43 @@ private struct CpuChart: View {
     let maxValue: Int
     let type: String
     
+    @State private var selectedIndex: Int?
+    
     var body: some View {
-        Chart {
-            ForEach(Array(chartData.enumerated()), id: \.element.id) { index, item in
-                LineMark(
-                    x: .value("", index),
-                    y: .value(type == "freq" ? LocalizedStringKey("Frequency") : LocalizedStringKey("Temperature"), (type == "freq" ? item.frequency : item.temperature) ?? 0)
+        Chart(Array(chartData.enumerated()), id: \.element.id) { index, item in
+            LineMark(
+                x: .value("", index),
+                y: .value(type == "freq" ? LocalizedStringKey("Frequency") : LocalizedStringKey("Temperature"), (type == "freq" ? item.frequency : item.temperature) ?? 0)
+            )
+            .interpolationMethod(.catmullRom)
+            AreaMark(
+                x: .value("", index),
+                y: .value(type == "freq" ? LocalizedStringKey("Frequency") : LocalizedStringKey("Temperature"), (type == "freq" ? item.frequency : item.temperature) ?? 0)
+            )
+            .foregroundStyle(
+                LinearGradient(
+                    colors: [
+                        .blue.opacity(0.5),
+                        .blue.opacity(0.2),
+                        .blue.opacity(0.05)
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
                 )
-                .interpolationMethod(.catmullRom)
-                AreaMark(
-                    x: .value("", index),
-                    y: .value(type == "freq" ? LocalizedStringKey("Frequency") : LocalizedStringKey("Temperature"), (type == "freq" ? item.frequency : item.temperature) ?? 0)
+            )
+            .interpolationMethod(.catmullRom)
+            if let selectedIndex, selectedIndex >= 0 && selectedIndex < chartData.count {
+                let markValue = chartData[selectedIndex]
+                ChartRuleMark(
+                    value: type == "freq" ? Double(markValue.frequency ?? 0) : Double(markValue.temperature ?? 0),
+                    index: selectedIndex,
+                    type: type,
+                    unit: type == "freq" ? "MHz" : "ºC",
+                    toInt: true,
                 )
-                .foregroundStyle(
-                    LinearGradient(
-                        colors: [
-                            .blue.opacity(0.5),
-                            .blue.opacity(0.2),
-                            .blue.opacity(0.05)
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                .interpolationMethod(.catmullRom)
             }
         }
+        .chartXSelection(value: $selectedIndex)
         .chartYScale(domain: 0...maxValue)
         .chartYAxisLabel(type == "freq" ? LocalizedStringKey("Frequency (MHz)") : LocalizedStringKey("Temperature (ºC)"))
         .chartXAxis(Visibility.hidden)
@@ -195,3 +206,4 @@ private struct CpuChart: View {
         .frame(height: 200)
     }
 }
+

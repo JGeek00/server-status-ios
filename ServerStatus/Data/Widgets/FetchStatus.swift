@@ -10,7 +10,7 @@ func fetchStatus(serverInstance: ServerInstances) async -> StatusModel? {
     if response.successful == true && response.data != nil {
         do {
             let jsonDictionary = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
-            let jsonData = try JSONSerialization.data(withJSONObject: transformStatusJSON(jsonDictionary!), options: [])
+            let jsonData = try JSONSerialization.data(withJSONObject: transformStatusJSON(input: jsonDictionary!), options: [])
             let data = try JSONDecoder().decode(StatusModel.self, from: Data(jsonData))
             
             return data

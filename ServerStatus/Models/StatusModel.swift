@@ -71,53 +71,97 @@ struct Storage: Codable {
 }
 
 
-func transformStatusJSON(_ input: [String: Any]) -> [String: Any] {
-    var output = input
-    
-    if let cpu = input["cpu"] as? [String: Any] {
+func transformStatusJSON(input: Any) -> [String: Any] {
+    guard let jsonObject = input as? [String: Any] else { return [:] }
+    var output: [String: Any] = [:]
+
+    // CPU
+    if let cpu = jsonObject["cpu"] as? [String: Any] {
+        var cpuCopy = cpu
         var coresData: [[String: Any]] = []
-        
-        let temperatures = cpu["temperatures"] as? [String: [Double]]
-        let frequencies = cpu["frequencies"] as? [String: [String: Int]]
-        
-        var convertedFrequencies = [[String: Int]]()
-        if frequencies != nil {
-            for (index, values) in frequencies! {
+
+        let temperatures = cpu["temperatures"] as? [String: Any]
+        let frequencies = cpu["frequencies"] as? [String: Any]
+
+        if let frequencies = frequencies {
+            // Sort frequencies by cpu number
+            let sortedFrequencies = frequencies
+                .compactMap { (key, value) -> (Int, String, Any)? in
+                    if let num = Int(key.replacingOccurrences(of: "cpu", with: "")) {
+                        return (num, key, value)
+                    }
+                    return nil
+                }
+                .sorted { $0.0 < $1.0 }
+
+            for (_, freqKey, freqValue) in sortedFrequencies {
                 var coreData: [String: Any] = [:]
-                if temperatures?["Core \(index.replacingOccurrences(of: "cpu", with: ""))"] != nil {
-                    coreData = coreData.merging([
-                        "temperatures": (temperatures!["Core \(index.replacingOccurrences(of: "cpu", with: ""))"]) as Any,
-                        "frequencies": values
-                    ]) { (_, new) in new }
+                let coreIndex = freqKey.replacingOccurrences(of: "cpu", with: "")
+
+                if let cpuTemps = cpu["temperatures"] as? [String: Any], let tctl = cpuTemps["Tctl"] as? [Any] {
+                    coreData["temperatures"] = tctl
+                    coreData["frequencies"] = freqValue
+                    coresData.append(coreData)
+                } else {
+                    if let coreTempArr = temperatures?["Core \(coreIndex)"] as? [Any] {
+                        coreData["temperatures"] = coreTempArr
+                    }
+                    if let freqDict = freqValue as? [String: Any] {
+                        var freqIntDict: [String: Int] = [:]
+                        for (k, v) in freqDict {
+                            if let vInt = v as? Int {
+                                freqIntDict[k] = vInt
+                            }
+                        }
+                        coreData["frequencies"] = freqIntDict
+                    }
+                    coresData.append(coreData)
                 }
-                else {
-                    coreData = coreData.merging([
-                        "frequencies": values
-                    ]) { (_, new) in new }
-                }
-                coresData.append(coreData)
-                convertedFrequencies.append(values)
             }
         }
 
-        output["cpu"] = cpu.merging(["cpuCores": coresData]) { (_, new) in new }
+        cpuCopy.removeValue(forKey: "frequencies")
+        cpuCopy.removeValue(forKey: "temperatures")
+        cpuCopy["cpuCores"] = coresData
+        output["cpu"] = cpuCopy
     }
-    
-    if let storage = input["storage"] as? [String: [String: Any]] {
-        var convertedStorage: [Any] = []
-        
-        for (key, values) in storage {
-            var newValues: [String: Any] = values
-            newValues.merge(["name": key]) { (_, new) in new }
-            convertedStorage.append(newValues)
+
+    // Memory
+    if let memory = jsonObject["memory"] as? [String: Any] {
+        output["memory"] = memory
+    }
+
+    // Storage
+    if let storage = jsonObject["storage"] as? [String: Any] {
+        var convertedStorage: [[String: Any]] = []
+        // sort keys alphabetically
+        let sortedKeys = storage.keys.sorted()
+        for key in sortedKeys {
+            if let value = storage[key] {
+                var storageItem: [String: Any] = ["name": key]
+                if let valueObj = value as? [String: Any] {
+                    for (innerKey, innerValue) in valueObj {
+                        storageItem[innerKey] = innerValue
+                    }
+                }
+                convertedStorage.append(storageItem)
+            }
         }
-        
         output["storage"] = convertedStorage
+    }
+
+    // Network
+    if let network = jsonObject["network"] as? [String: Any] {
+        output["network"] = network
+    }
+
+    // Host
+    if let host = jsonObject["host"] as? [String: Any] {
+        output["host"] = host
     }
 
     return output
 }
-
 
 class StatusResponse {
     let successful: Bool

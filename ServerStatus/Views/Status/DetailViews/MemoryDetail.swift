@@ -119,36 +119,48 @@ private struct MemoryChart: View {
         }
     }
     
+    @State private var selectedIndex: Int?
+    
     var body: some View {
         let chartData = generateChartData()
         let maxValue = chartData?.map() { return $0.total ?? 0 }.max() ?? 0
-        if chartData != nil {
+        if let chartData = chartData {
             Section("Chart") {
-                Chart {
-                    ForEach(Array(chartData!.enumerated()), id: \.element.id) { index, item in
-                        LineMark(
-                            x: .value("", index),
-                            y: .value("Memory", item.used != nil ? Double(item.used!)/1048576.0 : 0)
+                Chart(Array(chartData.enumerated()), id: \.element.id) { index, item in
+                    LineMark(
+                        x: .value("", index),
+                        y: .value("Memory", item.used != nil ? Double(item.used!)/1048576.0 : 0)
+                    )
+                    .interpolationMethod(.catmullRom)
+                    AreaMark(
+                        x: .value("", index),
+                        y: .value("Memory", item.used != nil ? Double(item.used!)/1048576.0 : 0)
+                    )
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [
+                                .blue.opacity(0.5),
+                                .blue.opacity(0.2),
+                                .blue.opacity(0.05)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
                         )
-                        .interpolationMethod(.catmullRom)
-                        AreaMark(
-                            x: .value("", index),
-                            y: .value("Memory", item.used != nil ? Double(item.used!)/1048576.0 : 0)
-                        )
-                        .foregroundStyle(
-                            LinearGradient(
-                                colors: [
-                                    .blue.opacity(0.5),
-                                    .blue.opacity(0.2),
-                                    .blue.opacity(0.05)
-                                ],
-                                startPoint: .top,
-                                endPoint: .bottom
+                    )
+                    .interpolationMethod(.catmullRom)
+                    if let selectedIndex, selectedIndex >= 0 && selectedIndex < chartData.count {
+                        let markValue = chartData[selectedIndex]
+                        if let value = markValue.used {
+                            ChartRuleMark(
+                                value: Double(value)/1048576.0,
+                                index: selectedIndex,
+                                type: "Memory",
+                                unit: "GB",
                             )
-                        )
-                        .interpolationMethod(.catmullRom)
+                        }
                     }
                 }
+                .chartXSelection(value: $selectedIndex)
                 .chartYScale(domain: 0...(Double(maxValue)/1048576.0))
                 .chartYAxisLabel(LocalizedStringKey("Memory (GB)"))
                 .chartXAxis(Visibility.hidden)

@@ -14,6 +14,7 @@ struct MobileView: View {
                 VStack {
                     ProgressView()
                 }
+                .transition(.opacity)
             }
             else if statusProvider.loadError == true {
                 VStack {
@@ -34,6 +35,7 @@ struct MobileView: View {
                     }
                 }
                 .padding(.horizontal, 24)
+                .transition(.opacity)
             }
             else {
                 GeometryReader { geometry in
@@ -74,6 +76,7 @@ struct MobileView: View {
                         await statusProvider.fetchStatus()
                     }
                 }
+                .transition(.opacity)
             }
         }
         .navigationTitle(instancesProvider.selectedInstance?.name ?? "Server status")
