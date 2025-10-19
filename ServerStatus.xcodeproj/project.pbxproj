@@ -43,6 +43,7 @@
 		0D16EF962BD6BEDE00A779DD /* GroupId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16EF942BD6BEDE00A779DD /* GroupId.swift */; };
 		0D16EF972BD7B3FE00A779DD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0DAD5E402BA67A06006D3F52 /* Localizable.xcstrings */; };
 		0D19D80C2EA502F7003B9C10 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D19D80B2EA502F7003B9C10 /* View.swift */; };
+		0D19D8102EA53E25003B9C10 /* icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 0D19D80F2EA53E25003B9C10 /* icon.icon */; };
 		0D36C5202C9C98B000DC0EC3 /* IAPsIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36C51F2C9C98B000DC0EC3 /* IAPsIds.swift */; };
 		0D4DB7B92BCA081B005ADE68 /* SystemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4DB7B82BCA081B005ADE68 /* SystemDetails.swift */; };
 		0D88524C2BB06BCB0049FE7A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D88524B2BB06BCA0049FE7A /* StoreKit.framework */; };
@@ -247,6 +248,7 @@
 		0D16EF922BD6B9A800A779DD /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		0D16EF942BD6BEDE00A779DD /* GroupId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupId.swift; sourceTree = "<group>"; };
 		0D19D80B2EA502F7003B9C10 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		0D19D80F2EA53E25003B9C10 /* icon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = icon.icon; sourceTree = "<group>"; };
 		0D36C51F2C9C98B000DC0EC3 /* IAPsIds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPsIds.swift; sourceTree = "<group>"; };
 		0D4DB7B82BCA081B005ADE68 /* SystemDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemDetails.swift; sourceTree = "<group>"; };
 		0D88524B2BB06BCA0049FE7A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -455,6 +457,7 @@
 				0D11EAC82BAB964E00451321 /* PrivacyInfo.xcprivacy */,
 				0DC4DB622BA6A358007A8328 /* Readme.md */,
 				0DAD5E1C2BA6648E006D3F52 /* ServerStatus.xcdatamodeld */,
+				0D19D80F2EA53E25003B9C10 /* icon.icon */,
 				0DAD5E212BA6648F006D3F52 /* Assets.xcassets */,
 				0DAD5E402BA67A06006D3F52 /* Localizable.xcstrings */,
 				0DAD5E172BA6648E006D3F52 /* ServerStatus */,
@@ -864,6 +867,7 @@
 				0DC4DB632BA6A358007A8328 /* Readme.md in Resources */,
 				0D8852502BB0F4FB0049FE7A /* PrivacyInfo.xcprivacy in Resources */,
 				0DAD5E412BA67A06006D3F52 /* Localizable.xcstrings in Resources */,
+				0D19D8102EA53E25003B9C10 /* icon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
