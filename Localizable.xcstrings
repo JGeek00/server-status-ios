@@ -38,6 +38,12 @@
             "state" : "new",
             "value" : "%1$@ %2$@"
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$@"
+          }
         }
       }
     },
@@ -566,6 +572,16 @@
         }
       }
     },
+    "Data transfer (Kbit/s)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transferencia de datos (Kbit/s)"
+          }
+        }
+      }
+    },
     "Default server" : {
       "localizations" : {
         "es" : {
@@ -653,6 +669,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Error"
+          }
+        }
+      }
+    },
+    "Fill all the required fields before trying to save" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rellena los campos requeridos antes de intentar guardar"
+          }
+        }
+      }
+    },
+    "Fill requierd fields" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rellena los campos requeridos"
           }
         }
       }

@@ -4,10 +4,6 @@ import Sentry
 @main
 struct ServerStatusApp: App {    
     let persistenceController = PersistenceController.shared
-    
-    init() {
-        startSentry()
-    }
 
     var body: some Scene {
         WindowGroup {

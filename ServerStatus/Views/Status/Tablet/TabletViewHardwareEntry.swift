@@ -57,13 +57,12 @@ struct TabletViewHardwareEntry: View {
                     }
                     Spacer()
                 }
-                
             }
+            .toggleGlassButtonIfAvailable(statusProvider.selectedHardwareItem == hardwareItem)
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
-            .background(statusProvider.selectedHardwareItem == hardwareItem ? Color.blue : nil)
+            .animation(.default, value: statusProvider.selectedHardwareItem == hardwareItem)
         }
         .cornerRadius(8)
-        .padding(.horizontal, 8)
     }
 }

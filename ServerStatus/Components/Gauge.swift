@@ -13,6 +13,38 @@ struct Gauge: View {
     @State private var startAngle = Angle(degrees: minimumAngle)
     @State private var endAngle = Angle(degrees: minimumAngle)
     
+    func colorToGradient(_ color: Color) -> LinearGradient {
+        if #available(iOS 26, *) {
+            let uiColor = UIColor(color)
+            var hue: CGFloat = 0
+            var saturation: CGFloat = 0
+            var brightness: CGFloat = 0
+            var alpha: CGFloat = 0
+                
+            uiColor.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+                    
+            let lighterColor = Color(
+                hue: Double(hue),
+                saturation: Double(saturation * 0.8),
+                brightness: Double(min(brightness * 1.2, 1.0)),
+                opacity: Double(alpha)
+            )
+            
+            return LinearGradient(
+                gradient: Gradient(colors: [lighterColor, color]),
+                startPoint: .bottom,
+                endPoint: .top
+            )
+        }
+        else {
+            return LinearGradient(
+                gradient: Gradient(colors: [color]),
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+        }
+    }
+    
     func getColor(percentage: Double) -> Color {
         let colorIndex = percentage/(100.0/Double(colors.count))
         if colorIndex < 1.0 {
@@ -29,7 +61,8 @@ struct Gauge: View {
     var body: some View {
         let perc = percentage > 100 ? 100 : percentage < 0 ? 0 : percentage
         let percAngle = ((maximumAngle - minimumAngle) * perc/100) + minimumAngle
-        let color = getColor(percentage: percentage)
+        let color = getColor(percentage: perc)
+        let gradient = colorToGradient(color)
         VStack {
             ZStack(alignment: .bottom) {
                 ZStack {
@@ -38,14 +71,16 @@ struct Gauge: View {
                         endAngle: .degrees(maximumAngle),
                         lineWidth: size*0.075
                     )
-                    .foregroundColor(color.opacity(0.3))
+                    .shadow(color: color.opacity(0.5), radius: 5)
+                    .foregroundStyle(color.opacity(0.3))
                     .frame(width: size, height: size)
                     RoundedArc(
                         startAngle: startAngle,
                         endAngle: endAngle,
                         lineWidth: size*0.075
                     )
-                    .foregroundColor(color)
+                    .shadow(color: color.opacity(0.25), radius: 5)
+                    .foregroundStyle(gradient)
                     .frame(width: size, height: size)
                     .onAppear {
                         withAnimation(Animation.smooth(duration: 0.5)) {

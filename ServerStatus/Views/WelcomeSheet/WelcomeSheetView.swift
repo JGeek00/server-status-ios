@@ -58,10 +58,9 @@ struct WelcomeSheetView: View {
                                 .foregroundColor(Color.white)
                                 .fontWeight(.medium)
                                 .padding(.horizontal, 16)
-                                .padding(.vertical, 12)
+                                .padding(.vertical, 8)
                         }
-                        .background(Color.blue)
-                        .cornerRadius(8)
+                        .glassProminentButtonStyleIfAvailable()
                         .padding(.bottom, geometry.safeAreaInsets.bottom/2)
                     }
                 }

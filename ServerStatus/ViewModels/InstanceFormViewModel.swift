@@ -21,6 +21,7 @@ class InstanceFormViewModel: ObservableObject {
     
     @Published var showError = false
     @Published var error = ""
+    @Published var fillFieldsError = false
     
     init(instance: ServerInstances? = nil) {
         guard let instance = instance else { return }

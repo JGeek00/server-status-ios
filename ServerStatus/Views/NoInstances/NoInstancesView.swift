@@ -24,14 +24,12 @@ struct NoInstancesView: View {
                 } label: {
                     Label {
                         Text("Add instance")
-                            .foregroundColor(.white)
                     } icon: {
                         Image(systemName: "plus")
-                            .foregroundColor(.white)
                     }
-
+                    .foregroundColor(.white)
                 }
-                .buttonStyle(.borderedProminent)
+                .glassProminentButtonStyleIfAvailable()
                 .cornerRadius(50)
                 .padding(10)
                 Spacer()
@@ -49,7 +47,7 @@ struct NoInstancesView: View {
                         }
 
                     }
-                    .buttonStyle(.borderedProminent)
+                    .glassProminentButtonStyleIfAvailable()
                     .cornerRadius(50)
                     .padding(10)
                 }

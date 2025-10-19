@@ -145,7 +145,8 @@ struct SettingsView: View {
                                 .font(.system(size: 16))
                             Spacer()
                         }
-                        .padding(.top, 8)
+                        .padding(.vertical, 8)
+                        
                     }
 
                 }

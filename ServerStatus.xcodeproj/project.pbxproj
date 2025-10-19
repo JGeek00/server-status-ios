@@ -42,6 +42,7 @@
 		0D16EF952BD6BEDE00A779DD /* GroupId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16EF942BD6BEDE00A779DD /* GroupId.swift */; };
 		0D16EF962BD6BEDE00A779DD /* GroupId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D16EF942BD6BEDE00A779DD /* GroupId.swift */; };
 		0D16EF972BD7B3FE00A779DD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0DAD5E402BA67A06006D3F52 /* Localizable.xcstrings */; };
+		0D19D80C2EA502F7003B9C10 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D19D80B2EA502F7003B9C10 /* View.swift */; };
 		0D36C5202C9C98B000DC0EC3 /* IAPsIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36C51F2C9C98B000DC0EC3 /* IAPsIds.swift */; };
 		0D4DB7B92BCA081B005ADE68 /* SystemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4DB7B82BCA081B005ADE68 /* SystemDetails.swift */; };
 		0D88524C2BB06BCB0049FE7A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D88524B2BB06BCA0049FE7A /* StoreKit.framework */; };
@@ -86,9 +87,6 @@
 		0DC4DBB62BA8845F007A8328 /* StatusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC4DBB52BA8845F007A8328 /* StatusModel.swift */; };
 		0DC4DBBB2BA88AC8007A8328 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC4DBBA2BA88AC8007A8328 /* ApiClient.swift */; };
 		0DC4DBBD2BA88F6A007A8328 /* BasicAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC4DBBC2BA88F6A007A8328 /* BasicAuth.swift */; };
-		0DD7BCC52C56E58C00A99EDB /* SentrySwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 0DD7BCC42C56E58C00A99EDB /* SentrySwiftUI */; };
-		0DD98CDF2BAC9F4300804BE7 /* Sentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD98CDE2BAC9F4300804BE7 /* Sentry.swift */; };
-		0DD98CE12BACA94E00804BE7 /* SentryConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD98CE02BACA94E00804BE7 /* SentryConfig.swift */; };
 		0DD98CE42BAD937100804BE7 /* ContributionProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD98CE32BAD937100804BE7 /* ContributionProduct.swift */; };
 		0DD98CE62BAD970C00804BE7 /* TipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD98CE52BAD970C00804BE7 /* TipsView.swift */; };
 		0DD98CE82BAD981400804BE7 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD98CE72BAD981400804BE7 /* Routes.swift */; };
@@ -248,6 +246,7 @@
 		0D16EF8E2BD6AED400A779DD /* FetchInstancesCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchInstancesCoreData.swift; sourceTree = "<group>"; };
 		0D16EF922BD6B9A800A779DD /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		0D16EF942BD6BEDE00A779DD /* GroupId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupId.swift; sourceTree = "<group>"; };
+		0D19D80B2EA502F7003B9C10 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		0D36C51F2C9C98B000DC0EC3 /* IAPsIds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPsIds.swift; sourceTree = "<group>"; };
 		0D4DB7B82BCA081B005ADE68 /* SystemDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemDetails.swift; sourceTree = "<group>"; };
 		0D88524B2BB06BCA0049FE7A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -293,8 +292,6 @@
 		0DC4DBB52BA8845F007A8328 /* StatusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusModel.swift; sourceTree = "<group>"; };
 		0DC4DBBA2BA88AC8007A8328 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		0DC4DBBC2BA88F6A007A8328 /* BasicAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicAuth.swift; sourceTree = "<group>"; };
-		0DD98CDE2BAC9F4300804BE7 /* Sentry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentry.swift; sourceTree = "<group>"; };
-		0DD98CE02BACA94E00804BE7 /* SentryConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentryConfig.swift; sourceTree = "<group>"; };
 		0DD98CE22BAD8EAE00804BE7 /* Server Status - Server monitor.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Server Status - Server monitor.storekit"; sourceTree = "<group>"; };
 		0DD98CE32BAD937100804BE7 /* ContributionProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionProduct.swift; sourceTree = "<group>"; };
 		0DD98CE52BAD970C00804BE7 /* TipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsView.swift; sourceTree = "<group>"; };
@@ -339,7 +336,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D88524C2BB06BCB0049FE7A /* StoreKit.framework in Frameworks */,
-				0DD7BCC52C56E58C00A99EDB /* SentrySwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,7 +405,6 @@
 			isa = PBXGroup;
 			children = (
 				0D11EAB82BAB277800451321 /* ChartsConfig.swift */,
-				0DD98CE02BACA94E00804BE7 /* SentryConfig.swift */,
 				0D16EF942BD6BEDE00A779DD /* GroupId.swift */,
 				0D36C51F2C9C98B000DC0EC3 /* IAPsIds.swift */,
 			);
@@ -439,6 +434,14 @@
 				0D16EF752BD68E1800A779DD /* Info.plist */,
 			);
 			path = CpuWidget;
+			sourceTree = "<group>";
+		};
+		0D19D80A2EA502C2003B9C10 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0D19D80B2EA502F7003B9C10 /* View.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		0DAD5E0C2BA6648E006D3F52 = {
@@ -479,6 +482,7 @@
 		0DAD5E172BA6648E006D3F52 /* ServerStatus */ = {
 			isa = PBXGroup;
 			children = (
+				0D19D80A2EA502C2003B9C10 /* Extensions */,
 				0DAD5E232BA6648F006D3F52 /* ServerStatus.entitlements */,
 				0D11EAB72BAB276E00451321 /* Config */,
 				0DAD5E392BA670B5006D3F52 /* Constants */,
@@ -576,7 +580,6 @@
 				0DC4DB6D2BA723AE007A8328 /* InstanceUrl.swift */,
 				0DC4DBBC2BA88F6A007A8328 /* BasicAuth.swift */,
 				0D11EAAD2BAA2B7900451321 /* Format.swift */,
-				0DD98CDE2BAC9F4300804BE7 /* Sentry.swift */,
 				0DB64CA02BED4A6A0063FBFE /* GetValues.swift */,
 				0DB64CA22BED911C0063FBFE /* UserDefaultsExtension.swift */,
 			);
@@ -734,7 +737,6 @@
 			);
 			name = ServerStatus;
 			packageProductDependencies = (
-				0DD7BCC42C56E58C00A99EDB /* SentrySwiftUI */,
 			);
 			productName = ServerStatus;
 			productReference = 0DAD5E152BA6648E006D3F52 /* ServerStatus.app */;
@@ -829,7 +831,6 @@
 			);
 			mainGroup = 0DAD5E0C2BA6648E006D3F52;
 			packageReferences = (
-				0DD7BCC32C56E58C00A99EDB /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 			);
 			productRefGroup = 0DAD5E162BA6648E006D3F52 /* Products */;
 			projectDirPath = "";
@@ -945,13 +946,11 @@
 				0DEC7DFA2BDAE64A00749D7A /* MockDataProvider.swift in Sources */,
 				0DAD5E382BA667FD006D3F52 /* InstanceFormViewModel.swift in Sources */,
 				0DC4DBBB2BA88AC8007A8328 /* ApiClient.swift in Sources */,
-				0DD98CDF2BAC9F4300804BE7 /* Sentry.swift in Sources */,
 				0DC4DB702BA76392007A8328 /* ServerInstanceItem.swift in Sources */,
 				0DC4DB732BA77007007A8328 /* StatusView.swift in Sources */,
 				0DAD5E202BA6648E006D3F52 /* RootView.swift in Sources */,
 				0DAD5E4F2BA68786006D3F52 /* SettingsViewModel.swift in Sources */,
 				0D11EA9E2BA9E07900451321 /* StatusMockData.swift in Sources */,
-				0DD98CE12BACA94E00804BE7 /* SentryConfig.swift in Sources */,
 				0DC4DB672BA71475007A8328 /* InstanceModel.swift in Sources */,
 				0D11EAAA2BAA253100451321 /* MobileView.swift in Sources */,
 				0D11EAAC2BAA255300451321 /* TabletView.swift in Sources */,
@@ -971,6 +970,7 @@
 				0DAD5E3B2BA670DE006D3F52 /* Regexps.swift in Sources */,
 				0D11EAB42BAB113B00451321 /* CpuDetail.swift in Sources */,
 				0DD98CEA2BAD991500804BE7 /* TipsViewModel.swift in Sources */,
+				0D19D80C2EA502F7003B9C10 /* View.swift in Sources */,
 				0DC4DB752BA77032007A8328 /* StatusProvider.swift in Sources */,
 				0D36C5202C9C98B000DC0EC3 /* IAPsIds.swift in Sources */,
 				0DAD5E5D2BA69B53006D3F52 /* Urls.swift in Sources */,
@@ -1607,25 +1607,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		0DD7BCC32C56E58C00A99EDB /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 8.32.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		0DD7BCC42C56E58C00A99EDB /* SentrySwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0DD7BCC32C56E58C00A99EDB /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = SentrySwiftUI;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		0DAD5E1C2BA6648E006D3F52 /* ServerStatus.xcdatamodeld */ = {

@@ -103,13 +103,18 @@ struct InstanceFormView: View {
                     }
                     else {
                         Button {
-                            instanceFormModel.saveInstance() {
-                                onClose()
+                            if validValues == true {
+                                instanceFormModel.saveInstance() {
+                                    onClose()
+                                }
+                            }
+                            else {
+                                instanceFormModel.fillFieldsError = true
                             }
                         } label: {
                             Text("Save")
                         }
-                        .disabled(!validValues)
+                        .glassProminentButtonStyleIfAvailable()
                     }
                 }
             })
@@ -119,10 +124,14 @@ struct InstanceFormView: View {
                 } label: {
                     Text("Close")
                 }
-                } message: {
+            } message: {
                     Text(instanceFormModel.error)
-                }
-
+            }
+            .alert("Fill requierd fields", isPresented: $instanceFormModel.fillFieldsError) {
+                
+            } message: {
+                Text("Fill all the required fields before trying to save")
+            }
         }
         .navigationViewStyle(.stack)
         .interactiveDismissDisabled()

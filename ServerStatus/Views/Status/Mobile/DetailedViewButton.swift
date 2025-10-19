@@ -11,7 +11,7 @@ struct DetailedViewButton: View {
                 .font(.system(size: 12))
                 .fontWeight(.bold)
         }
-        .buttonStyle(.borderedProminent)
+        .glassProminentButtonStyleIfAvailable()
         .cornerRadius(20)
         .padding(.horizontal, 10)
         .padding(.vertical, 5)
