@@ -1,7 +1,6 @@
 import Combine
 import CoreData
 import Foundation
-import Sentry
 
 @MainActor
 class StatusProvider: ObservableObject {

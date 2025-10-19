@@ -1,5 +1,4 @@
 import SwiftUI
-import Sentry
 
 @main
 struct ServerStatusApp: App {    
