@@ -1,5 +1,4 @@
 import Foundation
-import Sentry
 
 @MainActor
 class ApiClient {
@@ -22,10 +21,7 @@ class ApiClient {
             else {
                 return StatusResponse(successful: false, statusCode: response.statusCode, data: nil)
             }
-        } catch let error {
-            DispatchQueue.main.async {
-                SentrySDK.capture(error: error)
-            }
+        } catch {
             return defaultErrorResponse
         }
     }
