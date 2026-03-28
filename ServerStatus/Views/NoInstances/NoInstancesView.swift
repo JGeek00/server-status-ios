@@ -58,7 +58,6 @@ struct NoInstancesView: View {
             InstanceFormView() {
                 showFormSheet = false
             }
-            .environmentObject(InstanceFormViewModel())
         })
         .toolbar {
             ToolbarItem(placement: .secondaryAction) {

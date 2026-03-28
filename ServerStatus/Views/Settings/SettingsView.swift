@@ -50,7 +50,6 @@ struct SettingsView: View {
                             InstanceFormView() {
                                 newInstanceFormSheet = false
                             }
-                            .environmentObject(InstanceFormViewModel())
                         })
                     }
                     Picker("Theme", selection: $theme) {

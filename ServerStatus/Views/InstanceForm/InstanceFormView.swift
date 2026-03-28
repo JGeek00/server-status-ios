@@ -4,12 +4,14 @@ struct InstanceFormView: View {
     var instance: ServerInstances?
     var onClose: () -> Void
     
+    @StateObject private var instanceFormModel: InstanceFormViewModel
+    
     init(instance: ServerInstances? = nil, onClose: @escaping () -> Void) {
         self.instance = instance
         self.onClose = onClose
+        _instanceFormModel = StateObject(wrappedValue: InstanceFormViewModel(instance: instance))
     }
     
-    @EnvironmentObject private var instanceFormModel: InstanceFormViewModel
     @EnvironmentObject private var instancesModel: InstancesProvider
     @EnvironmentObject private var statusModel: StatusProvider
     
