@@ -6,12 +6,12 @@ let statusMockData = """
         "cpu": {
           "model": "Intel(R) N100",
           "utilisation": 0.0050000000000000044,
+          "temperature": [
+            55,
+            105
+          ],
           "cpuCores": [
             {
-              "temperatures": [
-                55.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -20,10 +20,6 @@ let statusMockData = """
               }
             },
             {
-              "temperatures": [
-                55.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -32,10 +28,6 @@ let statusMockData = """
               }
             },
             {
-              "temperatures": [
-                54.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -44,10 +36,6 @@ let statusMockData = """
               }
             },
             {
-              "temperatures": [
-                54.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -98,12 +86,12 @@ let statusMockData = """
         "cpu": {
           "model": "Intel(R) N100",
           "utilisation": 0.0050000000000000044,
+          "temperature": [
+            56,
+            105
+          ],
           "cpuCores": [
             {
-              "temperatures": [
-                55.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -112,10 +100,6 @@ let statusMockData = """
               }
             },
             {
-              "temperatures": [
-                56.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -124,10 +108,6 @@ let statusMockData = """
               }
             },
             {
-              "temperatures": [
-                54.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -136,10 +116,6 @@ let statusMockData = """
               }
             },
             {
-              "temperatures": [
-                56.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -190,12 +166,12 @@ let statusMockData = """
         "cpu": {
           "model": "Intel(R) N100",
           "utilisation": 0.03500000000000003,
+          "temperature": [
+            56,
+            105
+          ],
           "cpuCores": [
             {
-              "temperatures": [
-                56.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -204,10 +180,6 @@ let statusMockData = """
               }
             },
             {
-              "temperatures": [
-                55.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -216,10 +188,6 @@ let statusMockData = """
               }
             },
             {
-              "temperatures": [
-                54.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -228,10 +196,6 @@ let statusMockData = """
               }
             },
             {
-              "temperatures": [
-                56.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -282,12 +246,12 @@ let statusMockData = """
         "cpu": {
           "model": "Intel(R) N100",
           "utilisation": 0.0,
+          "temperature": [
+            55,
+            105
+          ],
           "cpuCores": [
             {
-              "temperatures": [
-                55.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -296,10 +260,6 @@ let statusMockData = """
               }
             },
             {
-              "temperatures": [
-                55.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -308,10 +268,6 @@ let statusMockData = """
               }
             },
             {
-              "temperatures": [
-                55.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -320,10 +276,6 @@ let statusMockData = """
               }
             },
             {
-              "temperatures": [
-                55.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -374,12 +326,12 @@ let statusMockData = """
         "cpu": {
           "model": "Intel(R) N100",
           "utilisation": 0.005025125628140725,
+          "temperature": [
+            55,
+            105
+          ],
           "cpuCores": [
             {
-              "temperatures": [
-                55.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -388,10 +340,6 @@ let statusMockData = """
               }
             },
             {
-              "temperatures": [
-                55.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -400,10 +348,6 @@ let statusMockData = """
               }
             },
             {
-              "temperatures": [
-                54.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,
@@ -412,10 +356,6 @@ let statusMockData = """
               }
             },
             {
-              "temperatures": [
-                54.0,
-                105.0
-              ],
               "frequencies": {
                 "now": 700,
                 "min": 700,

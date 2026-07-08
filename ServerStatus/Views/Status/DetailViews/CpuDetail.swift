@@ -23,7 +23,7 @@ private struct CpuList: View {
     
     var body: some View {
         let data = statusProvider.status?.last
-        let cpuMaxTemp = data?.cpu?.cpuCores?.map({ return $0.temperatures?.first ?? 0 }).max()
+        let cpuMaxTemp = data?.cpu?.temperature?.first
         List {
             Section("Information") {
                 HStack {
@@ -49,12 +49,21 @@ private struct CpuList: View {
                     Spacer()
                     Text(data?.cpu?.utilisation != nil ? "\(Int(data!.cpu!.utilisation!*100))%" : "N/A")
                 }
-                HStack {
-                    Text("Temperature")
-                    Spacer()
-                    Text(cpuMaxTemp != nil ? "\(cpuMaxTemp!)ºC" : "N/A")
+                if data?.cpu?.temperature != nil {
+                    VStack {
+                        if let t = data?.cpu?.temperature?.first {
+                            HStack {
+                                Text("Temperature")
+                                Spacer()
+                                Text(verbatim: "\(t) °C")
+                            }
+                            .padding(.bottom, 12)
+                        }
+                        GeneralCpuTempChart()
+                    }
                 }
             }
+            
             if data?.cpu?.cpuCores != nil {
                 ForEach(data!.cpu!.cpuCores!.indices, id: \.self) { index in
                     CpuCharts(index: index, inSheet: onCloseSheet != nil)
@@ -122,8 +131,8 @@ private struct CpuCharts: View {
                 frequency: $0?.cpu?.cpuCores?[index].frequencies?.now ?? 0,
                 minFrequency: $0?.cpu?.cpuCores?[index].frequencies?.min ?? 0,
                 maxFrequency: $0?.cpu?.cpuCores?[index].frequencies?.max ?? 0,
-                temperature: $0?.cpu?.cpuCores?[index].temperatures?[0] ?? 0,
-                maxTemperature: $0?.cpu?.cpuCores?[index].temperatures?[1] ?? 0
+                temperature: nil,
+                maxTemperature: nil
             )
         }
     }
@@ -131,28 +140,54 @@ private struct CpuCharts: View {
     var body: some View {
         let chartData = generateChartData()
         let maxFrequency = chartData?.map() { return $0.maxFrequency ?? 0 }.max() ?? 0
-        let maxTemperature = chartData?.map() { return $0.maxTemperature ?? 0 }.max() ?? 0
         if chartData != nil {
             Section("Core \(index)") {
                 if inSheet {
                     CpuChart(chartData: chartData!, maxValue: maxFrequency, type: "freq")
-                        .padding(.top, 8)
+                        .padding(.vertical, 8)
                         .listRowSeparator(.hidden)
-                    HStack {}
-                    CpuChart(chartData: chartData!, maxValue: maxTemperature, type: "temp")
-                        .padding(.bottom, 16)
-                        .listRowSeparator(.hidden)
-                    
                 }
                 else {
-                    HStack {
-                        CpuChart(chartData: chartData!, maxValue: maxFrequency, type: "freq")
-                        Spacer().frame(width: 32)
-                        CpuChart(chartData: chartData!, maxValue: maxTemperature, type: "temp")
-                    }
-                    .listRowSeparator(.hidden)
+                    CpuChart(chartData: chartData!, maxValue: maxFrequency, type: "freq")
+                        .listRowSeparator(.hidden)
                 }
             }
+        }
+    }
+}
+
+private struct GeneralCpuTempChart: View {
+    @EnvironmentObject var statusProvider: StatusProvider
+    
+    private func generateChartData() -> [CpuChartData]? {
+        guard let data = statusProvider.status else { return nil }
+        var reversedData: [StatusModel?] = data.reversed()
+        if reversedData.count < ChartsConfig.points {
+            reversedData.append(contentsOf: Array(repeating: nil, count: ChartsConfig.points-reversedData.count))
+        }
+        else {
+            reversedData = Array(reversedData.prefix(ChartsConfig.points))
+        }
+        
+        return reversedData.map() {
+            return CpuChartData(
+                id: UUID().uuidString,
+                frequency: nil,
+                minFrequency: nil,
+                maxFrequency: nil,
+                temperature: $0?.cpu?.temperature?[0] ?? 0,
+                maxTemperature: $0?.cpu?.temperature?[1] ?? 0
+            )
+        }
+    }
+    
+    var body: some View {
+        let chartData = generateChartData()
+        let maxTemperature = chartData?.map() { return $0.maxTemperature ?? 0 }.max() ?? 0
+        if chartData != nil && maxTemperature > 0 {
+            CpuChart(chartData: chartData!, maxValue: maxTemperature, type: "temp", axisLabel: false)
+                .padding(.vertical, 8)
+                .listRowSeparator(.hidden)
         }
     }
 }
@@ -161,6 +196,14 @@ private struct CpuChart: View {
     let chartData: [CpuChartData]
     let maxValue: Int
     let type: String
+    let axisLabel: Bool
+    
+    init(chartData: [CpuChartData], maxValue: Int, type: String, axisLabel: Bool = true) {
+        self.chartData = chartData
+        self.maxValue = maxValue
+        self.type = type
+        self.axisLabel = axisLabel
+    }
     
     @State private var selectedIndex: Int?
     
@@ -200,7 +243,11 @@ private struct CpuChart: View {
         }
         .chartXSelection(value: $selectedIndex)
         .chartYScale(domain: 0...maxValue)
-        .chartYAxisLabel(type == "freq" ? LocalizedStringKey("Frequency (MHz)") : LocalizedStringKey("Temperature (ºC)"))
+        .condition(transform: { view in
+            if axisLabel == true {
+                view.chartYAxisLabel(type == "freq" ? LocalizedStringKey("Frequency (MHz)") : LocalizedStringKey("Temperature (ºC)"))
+            } else { view }
+        })
         .chartXAxis(Visibility.hidden)
         .animation(.easeInOut(duration: 0.2), value: chartData)
         .frame(height: 200)

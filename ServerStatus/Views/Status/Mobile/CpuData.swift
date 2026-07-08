@@ -14,8 +14,8 @@ struct CpuData: View {
     var body: some View {
         let data = statusProvider.status?.last
 
-        let cpuMaxTemp = data?.cpu?.cpuCores?.map({ return $0.temperatures?.first ?? 0 }).max()
-        let cpuMaxTempLimit = data?.cpu?.cpuCores?.map({ return $0.temperatures?.last ?? 0 }).max()
+        let cpuMaxTemp = data?.cpu?.temperature?.first
+        let cpuMaxTempLimit = data?.cpu?.temperature?.last
         
         VStack(alignment: .leading) {
             HStack() {

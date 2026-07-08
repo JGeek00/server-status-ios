@@ -103,16 +103,6 @@
         }
       }
     },
-    "%lldºC" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lldºC"
-          }
-        }
-      }
-    },
     "1 second" : {
       "localizations" : {
         "es" : {

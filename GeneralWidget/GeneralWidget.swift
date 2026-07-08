@@ -38,8 +38,8 @@ struct GeneralWidgetEntryView : View {
     var entry: Provider.Entry
     
     var body: some View {
-        let cpuMaxTemp = entry.data?.cpu?.cpuCores?.map({ return $0.temperatures?.first ?? 0 }).max()
-        let cpuMaxTempLimit = entry.data?.cpu?.cpuCores?.map({ return $0.temperatures?.last ?? 0 }).max()
+        let cpuMaxTemp = entry.data?.cpu?.temperature?.first
+        let cpuMaxTempLimit = entry.data?.cpu?.temperature?.last
         
         let total = entry.data?.storage?.map() { $0.total ?? 0 }.max()
         let available = entry.data?.storage?.map() { $0.available ?? 0 }.max()

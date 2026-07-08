@@ -16,11 +16,11 @@ struct CPU: Codable {
     let model: String?
     let cores, cache: Int?
     let cpuCores: [CPUCore]?
+    let temperature: [Int]?
 }
 
 // MARK: - CPU Core
 struct CPUCore: Codable {
-    let temperatures: [Int]?
     let frequencies: Frequency?
 }
 
@@ -83,6 +83,30 @@ func transformStatusJSON(input: Any) -> [String: Any] {
         let temperatures = cpu["temperatures"] as? [String: Any]
         let frequencies = cpu["frequencies"] as? [String: Any]
 
+        // ponytail: one generic temperature instead of per-core; Tctl (overall sensor) wins, else max across cores
+        var genericTemp: [Int]?
+        if let temperatures = temperatures {
+            let toInts: (Any?) -> [Int]? = { value in
+                if let arr = value as? [Int] { return arr }
+                if let arr = value as? [Double] { return arr.map { Int($0) } }
+                return nil
+            }
+            if let tctl = toInts(temperatures["Tctl"]), !tctl.isEmpty {
+                genericTemp = tctl
+            } else {
+                var firsts: [Int] = []
+                var lasts: [Int] = []
+                for (_, value) in temperatures {
+                    guard let arr = toInts(value), arr.count >= 2 else { continue }
+                    firsts.append(arr[0])
+                    lasts.append(arr[arr.count - 1])
+                }
+                if !firsts.isEmpty, !lasts.isEmpty {
+                    genericTemp = [firsts.max() ?? 0, lasts.max() ?? 0]
+                }
+            }
+        }
+
         if let frequencies = frequencies {
             // Sort frequencies by cpu number
             let sortedFrequencies = frequencies
@@ -96,33 +120,26 @@ func transformStatusJSON(input: Any) -> [String: Any] {
 
             for (_, freqKey, freqValue) in sortedFrequencies {
                 var coreData: [String: Any] = [:]
-                let coreIndex = freqKey.replacingOccurrences(of: "cpu", with: "")
 
-                if let cpuTemps = cpu["temperatures"] as? [String: Any], let tctl = cpuTemps["Tctl"] as? [Any] {
-                    coreData["temperatures"] = tctl
-                    coreData["frequencies"] = freqValue
-                    coresData.append(coreData)
-                } else {
-                    if let coreTempArr = temperatures?["Core \(coreIndex)"] as? [Any] {
-                        coreData["temperatures"] = coreTempArr
-                    }
-                    if let freqDict = freqValue as? [String: Any] {
-                        var freqIntDict: [String: Int] = [:]
-                        for (k, v) in freqDict {
-                            if let vInt = v as? Int {
-                                freqIntDict[k] = vInt
-                            }
+                if let freqDict = freqValue as? [String: Any] {
+                    var freqIntDict: [String: Int] = [:]
+                    for (k, v) in freqDict {
+                        if let vInt = v as? Int {
+                            freqIntDict[k] = vInt
                         }
-                        coreData["frequencies"] = freqIntDict
                     }
-                    coresData.append(coreData)
+                    coreData["frequencies"] = freqIntDict
                 }
+                coresData.append(coreData)
             }
         }
 
         cpuCopy.removeValue(forKey: "frequencies")
         cpuCopy.removeValue(forKey: "temperatures")
         cpuCopy["cpuCores"] = coresData
+        if let genericTemp = genericTemp {
+            cpuCopy["temperature"] = genericTemp
+        }
         output["cpu"] = cpuCopy
     }
 
