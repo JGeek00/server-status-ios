@@ -83,12 +83,11 @@ func transformStatusJSON(input: Any) -> [String: Any] {
         let temperatures = cpu["temperatures"] as? [String: Any]
         let frequencies = cpu["frequencies"] as? [String: Any]
 
-        // ponytail: one generic temperature instead of per-core; Tctl (overall sensor) wins, else max across cores
         var genericTemp: [Int]?
         if let temperatures = temperatures {
             let toInts: (Any?) -> [Int]? = { value in
                 if let arr = value as? [Int] { return arr }
-                if let arr = value as? [Double] { return arr.map { Int($0) } }
+                if let arr = value as? [Double] { return arr.map { Int($0.rounded()) } }
                 return nil
             }
             if let tctl = toInts(temperatures["Tctl"]), !tctl.isEmpty {
